@@ -1,0 +1,19 @@
+<div *ngIf="userName" class="author-page-image-wrap">
+  <svg width="22" height="22">
+    <use xlink:href="assets/cook.svg#cook"></use>
+  </svg>
+  <span>{{userName}}</span>
+</div>
+
+<div *ngIf="recipes" class="author-page-recipes">
+  <recipe-preview *ngFor="let recipe of recipes"
+                  [recipeId]="recipe.recipe_id"
+                  [description]="recipe.recipe_description"
+                  [image]="recipe.recipe_preview"
+                  [time]="recipe.recipe_time"
+                  [type]="recipe.type_name"
+                  [title]="recipe.recipe_title"
+                  [isVegan]="recipe.recipe_isVegan"
+                  (click)="openRecipe(recipe.recipe_id)">
+  </recipe-preview>
+</div>

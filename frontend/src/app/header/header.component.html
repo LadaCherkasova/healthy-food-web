@@ -1,0 +1,22 @@
+<h1 class="header-title" routerLink='../'>Healthy food</h1>
+<div>
+  <button *ngIf="!(isLogged$ | async)" class="header-button-wrap header-button-alignment" (click)="openLoginModal()">
+    <svg width="27" height="27">
+      <use xlink:href="assets/cook.svg#cook"></use>
+    </svg>
+    <span class="header-button-text">Вход</span>
+  </button>
+  <div *ngIf="isLogged$ | async" class="header-button-wrap header-buttons">
+    <button class="header-button-alignment add-recipe" routerLink="create-recipe">
+      <span class="header-button-text">Создать рецепт</span>
+    </button>
+    <div class="header-button-divider"></div>
+    <button routerLink="profile" class="header-button-alignment">
+      <span class="header-button-text">Профиль</span>
+    </button>
+    <div class="header-button-divider"></div>
+    <button class="header-button-alignment" (click)="logOut()">
+      <span class="header-button-text">Выход</span>
+    </button>
+  </div>
+</div>

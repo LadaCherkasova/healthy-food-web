@@ -1,0 +1,78 @@
+<div *ngIf="recipe.recipe_title && (!isModerated || (isAdmin$ | async))">
+  <div class="recipe-page-card recipe-main-card">
+    <div class="recipe-page-image-wrap">
+      <img [src]="recipe.recipe_preview" class="recipe-page-main-image">
+      <button class="recipe-page-author-wrap" (click)="openAuthorRecipes()">
+        <svg width="16" height="16">
+          <use xlink:href="assets/cook.svg#cook"></use>
+        </svg>
+        <span>{{recipe.user_name}}</span>
+      </button>
+    </div>
+    <div class="recipe-page-info">
+      <div>
+        <span class="recipe-page-title">{{recipe.recipe_title}}</span>
+        <p class="recipe-page-text">{{recipe.recipe_description}}</p>
+      </div>
+      <div class="recipe-page-footer">
+        <span class="recipe-page-type">{{recipe.type_name}}</span>
+        <div class="recipe-page-time">
+          <svg width="16" height="16">
+            <use xlink:href="assets/clock.svg#clock"></use>
+          </svg>
+          <span>{{recipe.recipe_time}} min</span>
+        </div>
+        <ng-container *ngIf="isLogged$ | async">
+          <button *ngIf="!isModerated" (click)="toggleFavorite()">
+            <svg width="14" height="18"
+                 [class.recipe-favourite]="isFavorite"
+                 [class.recipe-not-favourite]="!isFavorite">
+              <use xlink:href="assets/favourite.svg#favourite"></use>
+            </svg>
+          </button>
+          <div *ngIf="isModerated">
+            <button class="approve-button" (click)="approveRecipe()">
+              <svg width="14" height="18">
+                <use xlink:href="assets/check.svg#check"></use>
+              </svg>
+            </button>
+            <button class="decline-button" (click)="declineRecipe()">
+              <svg width="14" height="14">
+                <use xlink:href="assets/cross.svg#cross"></use>
+              </svg>
+            </button>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <svg *ngIf="recipe.recipe_isVegan" class="recipe-page-leaf-icon" width="20" height="20">
+      <use xlink:href="assets/leaf.svg#leaf"></use>
+    </svg>
+  </div>
+  <button *ngIf="recipe.recipe_previousrecipe" class="recipe-page-previous-recipe-wrap" (click)="openPreviousRecipe()">
+    <svg width="16" height="16">
+      <use xlink:href="assets/link.svg#link"></use>
+    </svg>
+    <span>Этот рецепт может помочь Вам в приготовлении</span>
+  </button>
+  <div *ngFor="let step of steps" class="recipe-page-card recipe-page-step">
+    <img [src]="step.step_image" class="recipe-page-step-image">
+    <p>{{step.step_description}}</p>
+  </div>
+</div>
+
+<div *ngIf="recipe.recipe_title && (!isModerated || (isAdmin$ | async))" class="recipe-page-card recipe-ingredients-card">
+  <span class="recipe-page-title">Ингдериенты</span>
+  <div *ngFor="let ingredient of ingredients" class="recipe-ingredient-row">
+    <svg width="8" height="8">
+      <use xlink:href="assets/point.svg#point"></use>
+    </svg>
+    <span>{{ingredient.ingredient_name}}</span>
+    <span class="recipe-ingredient-amount">{{ingredient.recipe_ingredient_amount}}</span>
+  </div>
+  <div class="recipe-page-ingredients-portions">
+    <div class="recipe-page-ingredients-divider"></div>
+    <span>{{recipe.recipe_portions | portionsPhrase}}</span>
+    <div class="recipe-page-ingredients-divider"></div>
+  </div>
+</div>

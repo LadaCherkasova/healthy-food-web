@@ -1,0 +1,27 @@
+<button class="register-dialog-close-icon" (click)="closeDialog()">
+  <svg width="14" height="14">
+    <use xlink:href="assets/cross.svg#cross"></use>
+  </svg>
+</button>
+
+<div class="register-dialog">
+  <p class="register-dialog-title register-dialog-block">Регистрация</p>
+  <div class="register-dialog-block">
+    <p class="register-dialog-subtitle">Введите имя</p>
+    <input class="register-dialog-input" [formControl]="nameControl">
+  </div>
+  <div class="register-dialog-block">
+    <p class="register-dialog-subtitle">Введите почту</p>
+    <input class="register-dialog-input" [formControl]="emailControl">
+  </div>
+  <div class="register-dialog-block">
+    <p class="register-dialog-subtitle">Введите пароль</p>
+    <input class="register-dialog-input" [formControl]="passwordControl" type="password">
+  </div>
+  <p *ngIf="showError" class="register-dialog-error">Пользователь с такой почтой уже</p>
+  <p *ngIf="showError" class="register-dialog-error">зарегистрирован</p>
+  <button class="register-dialog-button" (click)="register()"
+          [class.disabled]="!emailControl.value || !passwordControl.value || !nameControl.value">
+    <span>Зарегистрироваться</span>
+  </button>
+</div>

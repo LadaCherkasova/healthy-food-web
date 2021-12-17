@@ -1,0 +1,44 @@
+.cdk-overlay-container {
+  left: 0;
+  width: fit-content;
+  height: fit-content;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+}
+
+.cdk-global-overlay-wrapper {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(2px);
+  background: var(--bg-10);
+}
+
+.mat-checkbox-inner-container {
+  margin: -10px 14px 0 0 !important;
+  height: 18px;
+}
+
+.mat-checkbox-frame {
+  height: 20px;
+  width: 20px;
+  background: var(--bg-04) !important;
+  border: var(--border-03) !important;
+}
+
+.mat-checkbox-input {
+  display: none;
+}
+
+.mat-checkbox-checkmark {
+  top: 2px !important;
+  left: 1.5px !important;
+}
+
+.mat-checkbox-checkmark-path {
+  stroke: var(--text-02);
+}

@@ -1,0 +1,97 @@
+<div class="find-page-input-wrap">
+  <input class="find-page-input" [formControl]="titleControl">
+  <button *ngIf="showFindIcon" class="find-page-input-icon" (click)="getFilteredRecipes(true)">
+    <svg width="22" height="23">
+      <use xlink:href="assets/find.svg#find"></use>
+    </svg>
+  </button>
+  <button *ngIf="!showFindIcon" class="find-page-input-icon" (click)="toggleInputIcon()">
+    <svg width="23" height="24">
+      <use xlink:href="assets/settings2.svg#settings2"></use>
+    </svg>
+  </button>
+  <div class="find-page-settings-wrap" [class.hidden-settings]="!showFindIcon">
+    <div class="find-page-filter-shields">
+      <ng-container *ngIf="shields.ingredients">
+        <filter-shield *ngFor="let shield of shields.ingredients"
+                       color="blue"
+                       [text]="shield.title"
+                       [hideCrosses]="!showFindIcon"
+                       (clicked)="deleteBlueShield(shield.title)"
+                       class="find-page-filter-shield"></filter-shield>
+      </ng-container>
+      <ng-container *ngIf="shields.time">
+        <filter-shield [text]="shields.time + ' min'"
+                       color="white"
+                       [hideCrosses]="!showFindIcon"
+                       (clicked)="deleteWhiteShield(true)"
+                       class="find-page-filter-shield"></filter-shield>
+      </ng-container>
+      <ng-container *ngIf="shields.isVegan">
+        <filter-shield image="leaf"
+                       color="white"
+                       [hideCrosses]="!showFindIcon"
+                       (clicked)="deleteWhiteShield(false)"
+                       class="find-page-filter-shield"></filter-shield>
+      </ng-container>
+      <ng-container *ngIf="shields.type">
+        <filter-shield [text]="shields.type"
+                       color="red"
+                       [hideCrosses]="!showFindIcon"
+                       (clicked)="deleteRedShield()"
+                       class="find-page-filter-shield"></filter-shield>
+      </ng-container>
+    </div>
+    <div class="find-page-settings">
+      <div>
+        <span class="find-page-settings-text">Ингредиент в блюде</span>
+        <div class="find-page-settings-list">
+          <div class="find-page-settings-list-input-wrap">
+            <svg width="22" height="23">
+              <use xlink:href="assets/find.svg#find"></use>
+            </svg>
+            <input [formControl]="ingredientSearchControl">
+          </div>
+          <mat-checkbox *ngFor="let ingredient of currentIngredients"
+                        [checked]="ingredient.checked"
+                        class="find-page-settings-list-item"
+                        (change)="toggleIngredient(ingredient.ingredient_name)">
+            {{ingredient.ingredient_name}}
+          </mat-checkbox>
+        </div>
+      </div>
+      <div>
+        <span class="find-page-settings-text">Тип блюда</span>
+        <div class="find-page-settings-list types-list">
+          <mat-checkbox *ngFor="let type of types"
+                        [checked]="type.type_name === shields.type"
+                        [class.disabled]="shields.type && type.type_name !== shields.type"
+                        class="find-page-settings-list-item"
+                        (change)="toggleType(type.type_name)">
+            {{type.type_name}}
+          </mat-checkbox>
+        </div>
+        <div class="find-page-settings-time">
+          <span class="find-page-settings-text">Готовится до</span>
+          <input class="find-page-settings-input" [formControl]="timeControl" type="number">
+          <span class="find-page-settings-text">min</span>
+        </div>
+        <mat-checkbox class="find-page-settings-text" [formControl]="veganControl">Вегетарианское блюдо</mat-checkbox>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="find-page-recipes-wrap">
+  <recipe-preview *ngFor="let recipe of recipes"
+                  [description]="recipe.recipe_description"
+                  [image]="recipe.recipe_preview"
+                  [time]="recipe.recipe_time"
+                  [type]="recipe.type_name"
+                  [title]="recipe.recipe_title"
+                  [isVegan]="recipe.recipe_isvegan"
+                  [recipeId]="recipe.recipe_id"
+                  (click)="openRecipe(recipe.recipe_id)">
+  </recipe-preview>
+</div>

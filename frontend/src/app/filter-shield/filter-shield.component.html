@@ -1,0 +1,9 @@
+<div class="filter-shield filter-shield-{{color}}">
+  <button *ngIf="!hideCrosses" class="filter-shield-cross-icon" (click)="clicked.emit()">
+    <svg width="12" height="12">
+      <use xlink:href="assets/cross.svg#cross"></use>
+    </svg>
+  </button>
+  <img *ngIf="image" class="filter-shield-image" src="assets/{{image}}.svg">
+  <span *ngIf="text" class="filter-shield-text">{{text}}</span>
+</div>

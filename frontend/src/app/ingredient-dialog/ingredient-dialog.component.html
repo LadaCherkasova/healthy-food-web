@@ -1,0 +1,15 @@
+<button class="ingredient-dialog-close-icon" (click)="closeDialog()">
+  <svg width="14" height="14">
+    <use xlink:href="assets/cross.svg#cross"></use>
+  </svg>
+</button>
+
+<div class="ingredient-dialog">
+  <div class="ingredient-dialog-block">
+    <p class="ingredient-dialog-subtitle">Введите свой ингредиент</p>
+    <input class="ingredient-dialog-input" [formControl]="ingredientControl">
+  </div>
+  <button class="ingredient-dialog-button" (click)="sendIngredient()" [disabled]="!ingredientControl.value">
+    <span>Отправить</span>
+  </button>
+</div>

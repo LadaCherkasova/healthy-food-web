@@ -1,0 +1,35 @@
+.filter-shield {
+  border-radius: 16px;
+  padding: 0 8px 0 4px;
+  height: 33px;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+
+  &-blue {
+    background: var(--bg-06);
+    border: var(--border-04);
+  }
+
+  &-red {
+    background: var(--bg-05);
+    border: var(--border-03);
+  }
+
+  &-white {
+    background: var(--bg-04);
+    border: var(--border-01);
+  }
+}
+
+.filter-shield-image {
+  width: 16px;
+  height: 16px;
+  margin: -2px 0 0 3px;
+}
+
+.filter-shield-text {
+  font-size: 18px;
+  line-height: 18px;
+  margin-left: 6px;
+}

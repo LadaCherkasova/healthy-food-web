@@ -1,0 +1,41 @@
+:host {
+  display: block;
+  width: 100%;
+  padding: 100px 15%;
+  margin: 20px 0;
+}
+
+.favourite-page-titles {
+  display: flex;
+}
+
+.favourite-page-title-wrap {
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+
+  &:last-of-type {
+    margin-left: 40px;
+  }
+
+  &.not-active {
+    opacity: 0.6;
+    pointer-events: unset;
+  }
+}
+
+.favourite-page-icon {
+  margin: -4px 8px 0 0;
+  color: var(--text-04);
+}
+
+.favourite-page-title {
+  font-size: 22px;
+}
+
+.favourite-page-recipes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 60px;
+  margin-top: 32px;
+}

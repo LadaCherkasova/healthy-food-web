@@ -1,0 +1,168 @@
+<div>
+  <div class="add-recipe-page-card">
+    <div class="add-recipe-page-block">
+      <span>Название блюда:</span>
+      <input class="add-recipe-page-input" (change)="changeValue($event, 'title')">
+    </div>
+    <div class="add-recipe-page-block">
+      <span>Краткое описание:</span>
+      <textarea class="add-recipe-page-input" (change)="changeValue($event, 'description')"></textarea>
+    </div>
+    <div class="add-recipe-page-block">
+      <span>Фото для превью:</span>
+      <div class="add-recipe-page-photo-wrap">
+        <button (click)="addImage('file')" class="add-recipe-page-photo-icon">
+          <svg width="16" height="16">
+            <use xlink:href="assets/plus.svg#plus"></use>
+          </svg>
+        </button>
+        <input id="file" type="file" class="add-recipe-page-hide" [formControl]="fileControl" accept="image">
+        <img *ngIf="recipe.preview" [src]="recipe.preview | safeUrl" class="add-recipe-page-image">
+      </div>
+    </div>
+    <div class="add-recipe-page-types-wrap">
+      <span>Тип блюда: </span>
+      <div *ngIf="recipe.type" class="add-recipe-page-photo-wrap">
+        <span>{{recipe.type}}</span>
+        <button class="add-recipe-page-photo-icon" (click)="deleteType()">
+          <svg width="16" height="14">
+            <use xlink:href="assets/cross.svg#cross"></use>
+          </svg>
+        </button>
+      </div>
+      <div class="add-recipe-ingredients-select-wrap" *ngIf="!recipe.type">
+        <button *ngFor="let type of types"
+                (click)="setCurrentTypeName(type)"
+                class="add-recipe-ingredients-select-item">
+          {{type.type_name}}
+        </button>
+      </div>
+    </div>
+    <div class="add-recipe-page-block">
+      <span>Готовится до</span>
+      <input class="add-recipe-page-input small" type="number" (change)="changeValue($event, 'time')">
+      <span>минут</span>
+    </div>
+    <div class="add-recipe-page-block">
+      <span>* Рецепт-подсказка</span>
+      <p class="add-recipe-page-subtext">Вставьте при необходимости сюда ссылку на рецепт (с этого сайта), который может помочь в
+        приготовлении Вашего рецепта</p>
+      <input class="add-recipe-page-input" (change)="changeValue($event, 'previousRecipe')">
+    </div>
+    <div>
+      <mat-checkbox (click)="changeCheckboxValue($event)">Вегетарианское блюдо</mat-checkbox>
+    </div>
+  </div>
+  <div *ngFor="let step of steps" class="add-recipe-page-step-wrap">
+    <button class="add-recipe-page-photo-icon"
+            (click)="deleteStep(step)">
+      <svg width="14" height="14">
+        <use xlink:href="assets/cross.svg#cross"></use>
+      </svg>
+    </button>
+    <div class="add-recipe-page-card step-card">
+      <img [src]="step.photo | safeUrl">
+      <div>{{step.description}}</div>
+    </div>
+  </div>
+  <div class="add-recipe-page-step-wrap">
+    <button class="add-recipe-page-photo-icon"
+            [class.disabled]="!recipe.currentStepPhoto || !currentStepControl.value"
+            (click)="setCurrentStep()">
+      <svg width="14" height="14">
+        <use xlink:href="assets/check.svg#check"></use>
+      </svg>
+    </button>
+    <div class="add-recipe-page-card">
+      <div class="add-recipe-page-block">
+        <span>Опишите действия в этом шаге:</span>
+        <textarea class="add-recipe-page-input" [formControl]="currentStepControl"></textarea>
+      </div>
+      <span>Прикрепите фото:</span>
+      <div class="add-recipe-page-photo-wrap">
+        <button (click)="addImage('currentFile')" class="add-recipe-page-photo-icon">
+          <svg width="16" height="16">
+            <use xlink:href="assets/plus.svg#plus"></use>
+          </svg>
+        </button>
+        <input id="currentFile" type="file" class="add-recipe-page-hide" [formControl]="currentFileControl" accept="image">
+        <img *ngIf="recipe.currentStepPhoto" [src]="recipe.currentStepPhoto | safeUrl" class="add-recipe-page-image">
+      </div>
+    </div>
+  </div>
+  <button class="add-recipe-page-button"
+          (click)="sendRecipe()">
+    <span>Создать рецепт</span>
+  </button>
+  <p class="add-recipe-page-subtext narrow-text">* Ваш рецепт будет отправлен на модерацию администратору сайта</p>
+</div>
+
+<div class="add-recipe-page-card add-recipe-ingredients-card">
+  <span class="add-recipe-page-title">Ингредиенты</span>
+  <div *ngFor="let ingredient of chosenIngredients" class="add-recipe-chosen-ingredient-row">
+    <svg width="8" height="8">
+      <use xlink:href="assets/point.svg#point"></use>
+    </svg>
+    <span>{{ingredient.name}}</span>
+    <span class="add-recipe-ingredient-amount">{{ingredient.amount}}</span>
+    <button (click)="deleteIngredient(ingredient)">
+      <svg width="12" height="12">
+        <use xlink:href="assets/cross.svg#cross"></use>
+      </svg>
+    </button>
+  </div>
+
+  <div class="add-recipe-ingredient-selection">
+    <div *ngIf="!currentIngredient">
+      <span>Выберите ингредиент</span>
+      <div class="add-recipe-ingredients-select-wrap">
+        <div class="add-recipe-ingredients-select">
+          <svg width="17" height="18">
+            <use xlink:href="assets/find.svg#find"></use>
+          </svg>
+          <input [formControl]="ingredientSearchControl">
+        </div>
+        <button *ngFor="let ingredient of currentIngredients"
+                (click)="setCurrentIngredientName($event)"
+                class="add-recipe-ingredients-select-item">
+          {{ingredient.ingredient_name}}
+        </button>
+      </div>
+    </div>
+    <div *ngIf="currentIngredient" class="add-recipe-current-ingredient">
+      {{currentIngredient}}
+    </div>
+    <div>
+      <span>Введите количество</span>
+      <div class="add-recipe-current-ingredient-icons">
+        <input class="add-recipe-page-input small" [formControl]="ingredientAmountControl">
+        <button class="add-recipe-page-photo-icon"
+                [class.disabled]="!currentIngredient || !ingredientAmountControl.value"
+                (click)="setCurrentIngredient()">
+          <svg width="14" height="14">
+            <use xlink:href="assets/check.svg#check"></use>
+          </svg>
+        </button>
+        <button class="add-recipe-page-photo-icon" (click)="deleteCurrentIngredient()">
+          <svg width="14" height="14">
+            <use xlink:href="assets/cross.svg#cross"></use>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="moderated-ingredient-block">
+    <span class="add-recipe-page-subtext">Если Вы не можете найти необходимый ингредиент, Вы можете отправить его на
+      модерацию администратору сайта</span>
+    <button class="add-recipe-page-photo-icon" (click)="openIngredientDialog()">
+      <svg width="16" height="32">
+        <use xlink:href="assets/send.svg#send"></use>
+      </svg>
+    </button>
+  </div>
+  <div>
+    <span>Количество порций: </span>
+    <input class="add-recipe-page-input small" (change)="changeValue($event, 'portions')">
+  </div>
+</div>
+<p *ngIf="showErrorText" class="add-recipe-page-error-text">Не все обязательные поля заполнены</p>

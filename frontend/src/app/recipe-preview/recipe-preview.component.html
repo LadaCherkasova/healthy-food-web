@@ -1,0 +1,40 @@
+<img [src]="image" class="recipe-preview-image">
+<div class="recipe-preview-info">
+  <div>
+    <span class="recipe-preview-title">{{title}}</span>
+    <p class="recipe-preview-description">{{description}}</p>
+  </div>
+  <div class="recipe-preview-footer">
+    <span class="recipe-preview-type">{{type}}</span>
+    <div class="recipe-preview-time">
+      <svg width="16" height="16">
+        <use xlink:href="assets/clock.svg#clock"></use>
+      </svg>
+      <span>{{time}} min</span>
+    </div>
+    <ng-container *ngIf="isLogged$ | async">
+      <button *ngIf="!isModerated" (click)="toggleFavorite($event)">
+        <svg width="14" height="18"
+             [class.recipe-favourite]="isFavorite"
+             [class.recipe-not-favourite]="!isFavorite">
+          <use xlink:href="assets/favourite.svg#favourite"></use>
+        </svg>
+      </button>
+      <div *ngIf="isModerated" >
+        <button class="approve-button" (click)="approveRecipe($event)">
+          <svg width="14" height="18">
+            <use xlink:href="assets/check.svg#check"></use>
+          </svg>
+        </button>
+        <button class="decline-button" (click)="declineRecipe($event)">
+          <svg width="14" height="14">
+            <use xlink:href="assets/cross.svg#cross"></use>
+          </svg>
+        </button>
+      </div>
+    </ng-container>
+  </div>
+</div>
+<svg *ngIf="isVegan" class="recipe-preview-leaf-icon" width="20" height="20">
+  <use xlink:href="assets/leaf.svg#leaf"></use>
+</svg>

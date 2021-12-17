@@ -1,0 +1,40 @@
+<div class="favourite-page-titles">
+  <button class="favourite-page-title-wrap" [class.not-active]="!showFavorites" (click)="toggleTab()">
+    <svg width="16" height="22" class="favourite-page-icon">
+      <use xlink:href="assets/favourite.svg#favourite"></use>
+    </svg>
+    <span class="favourite-page-title">Избранное</span>
+  </button>
+  <button class="favourite-page-title-wrap" [class.not-active]="showFavorites" (click)="toggleTab()">
+    <svg width="22" height="22" class="favourite-page-icon">
+      <use xlink:href="assets/cook.svg#cook"></use>
+    </svg>
+    <span class="favourite-page-title">Собственные рецепты</span>
+  </button>
+</div>
+
+<div *ngIf="showFavorites" class="favourite-page-recipes">
+  <recipe-preview *ngFor="let favorite of favorites"
+                  [recipeId]="favorite.recipe_id"
+                  [description]="favorite.recipe_description"
+                  [image]="favorite.recipe_preview"
+                  [time]="favorite.recipe_time"
+                  [type]="favorite.type_name"
+                  [title]="favorite.recipe_title"
+                  [isVegan]="favorite.recipe_isVegan"
+                  (click)="openRecipe(favorite.recipe_id)">
+  </recipe-preview>
+</div>
+
+<div *ngIf="!showFavorites" class="favourite-page-recipes">
+  <recipe-preview *ngFor="let recipe of ownRecipes"
+                  [recipeId]="recipe.recipe_id"
+                  [description]="recipe.recipe_description"
+                  [image]="recipe.recipe_preview"
+                  [time]="recipe.recipe_time"
+                  [type]="recipe.type_name"
+                  [title]="recipe.recipe_title"
+                  [isVegan]="recipe.recipe_isVegan"
+                  (click)="openRecipe(recipe.recipe_id)">
+  </recipe-preview>
+</div>
