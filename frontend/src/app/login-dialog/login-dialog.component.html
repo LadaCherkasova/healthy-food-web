@@ -1,30 +1,3 @@
-<button class="login-dialog-close-icon" (click)="closeDialog()">
-  <svg width="14" height="14">
-    <use xlink:href="assets/cross.svg#cross"></use>
-  </svg>
-</button>
-
-<div class="login-dialog">
-  <p class="login-dialog-title login-dialog-block">Вход</p>
-  <div class="login-dialog-block">
-    <p class="login-dialog-subtitle">Введите почту</p>
-    <input class="login-dialog-input" [formControl]="emailControl">
-  </div>
-  <div class="login-dialog-block">
-    <p class="login-dialog-subtitle">Введите пароль</p>
-    <input class="login-dialog-input" [formControl]="passwordControl" type="password">
-  </div>
-  <p *ngIf="showError" class="login-dialog-error">Логин или пароль введен неверно</p>
-  <div class="login-dialog-buttons-block">
-    <button (click)="openRegisterModal()">
-      <span>Регистрация</span>
-    </button>
-    <div class="login-dialog-button-wrap">
-      <button class="login-dialog-button" (click)="login()"
-              [class.disabled]="!emailControl.value || !passwordControl.value">
-        <span>Войти</span>
-      </button>
-    </div>
-    <div></div>
-  </div>
+<div>
+  <div id="userfront-alnkkd"></div>
 </div>

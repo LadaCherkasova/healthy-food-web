@@ -4,6 +4,9 @@ import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
 import { AuthQuery } from '../services/auth.query';
 import { AuthStore } from '../services/auth.store';
 import { Router } from '@angular/router';
+import { RegisterDialogComponent } from '../register-dialog/register-dialog.component';
+
+declare var Userfront: any;
 
 @Component({
   selector: 'header',
@@ -13,6 +16,8 @@ import { Router } from '@angular/router';
 export class HeaderComponent {
   readonly isLogged$ = this.authQuery.isLogged$;
 
+  readonly token$ = this.authQuery.select('token');
+
   constructor(
     private matDialog: MatDialog,
     private authQuery: AuthQuery,
@@ -20,12 +25,17 @@ export class HeaderComponent {
     private router: Router
   ) {}
 
+  openRegisterModal(): void {
+    this.matDialog.open(RegisterDialogComponent);
+  }
+
   openLoginModal(): void {
     this.matDialog.open(LoginDialogComponent);
   }
 
   logOut(): void {
-    this.authStore.update({ isLogged: false });
+    Userfront.logout();
+    this.authStore.update({ isLogged: false, token: '' });
     if (!this.router.url.includes('/recipe/')) {
       this.router.navigateByUrl('');
     }

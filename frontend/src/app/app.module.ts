@@ -12,7 +12,6 @@ import { RecipePageModule } from './recipe-page/recipe-page.module';
 import { RegisterDialogModule } from './register-dialog/register-dialog.module';
 import { LoginDialogModule } from './login-dialog/login-dialog.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AuthService } from './services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { SettingsService } from './services/settings.service';
 import { RecipesService } from './services/recipes.service';
@@ -48,7 +47,6 @@ import { PipesModule } from './pipes/pipes.module';
     PipesModule,
   ],
   providers: [
-    AuthService,
     SettingsService,
     RecipesService,
     FavoritesService,
