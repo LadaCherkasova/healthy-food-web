@@ -1,13 +1,15 @@
 <h1 class="header-title" routerLink='../'>Healthy food</h1>
 <div class="header-buttons">
-  <button *ngIf="!(token$ | async)" class="header-button-text" (click)="openRegisterModal()">Регистрация</button>
-  <button *ngIf="!(token$ | async)" class="header-button-wrap header-button-alignment" (click)="openLoginModal()">
-    <svg width="27" height="27">
-      <use xlink:href="assets/cook.svg#cook"></use>
-    </svg>
-    <span class="header-button-text">Вход</span>
-  </button>
-  <div *ngIf="token$ | async" class="header-button-wrap header-buttons">
+  <ng-container *ngIf="!(isLogged$ | async)">
+    <button class="header-button-text" (click)="openRegisterModal()">Регистрация</button>
+    <button class="header-button-wrap header-button-alignment" (click)="openLoginModal()">
+      <svg width="27" height="27">
+        <use xlink:href="assets/cook.svg#cook"></use>
+      </svg>
+      <span class="header-button-text">Вход</span>
+    </button>
+  </ng-container>
+  <div *ngIf="isLogged$ | async" class="header-button-wrap header-buttons">
     <button class="header-button-alignment add-recipe" routerLink="create-recipe">
       <span class="header-button-text">Создать рецепт</span>
     </button>

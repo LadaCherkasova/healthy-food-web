@@ -24,6 +24,7 @@ import { IngredientDialogModule } from './ingredient-dialog/ingredient-dialog.mo
 import { AdminGuard } from './admin.guard';
 import { AuthorPageModule } from './author-page/author-page.module';
 import { PipesModule } from './pipes/pipes.module';
+import { DashboardPageModule } from './dashboard-page/dashboard-page.module';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { PipesModule } from './pipes/pipes.module';
     IngredientDialogModule,
     AuthorPageModule,
     PipesModule,
+    DashboardPageModule,
   ],
   providers: [
     SettingsService,

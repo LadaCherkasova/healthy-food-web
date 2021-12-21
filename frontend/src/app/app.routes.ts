@@ -7,6 +7,7 @@ import { AuthorizationGuard } from './authorization.guard';
 import { ModerationPageComponent } from './moderation-page/moderation-page.component';
 import { AdminGuard } from './admin.guard';
 import { AuthorPageComponent } from './author-page/author-page.component';
+import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
 
 
 export const routes: Routes = [
@@ -36,5 +37,9 @@ export const routes: Routes = [
   {
     path: 'profile/:id',
     component: AuthorPageComponent,
+  },
+  {
+    path: '/',
+    component: DashboardPageComponent,
   }
 ]
