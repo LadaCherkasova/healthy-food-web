@@ -17,6 +17,10 @@
   }
 }
 
+.header-buttons {
+  display: flex;
+}
+
 .header-button-wrap {
   border-radius: 24px;
   background: var(--bg-03);
@@ -41,6 +45,10 @@
 .header-button-text {
   font-size: 20px;
   margin: 0 0 -2px 0;
+
+  &:first-of-type {
+    margin-right: 10px;
+  }
 }
 
 .header-button-divider {

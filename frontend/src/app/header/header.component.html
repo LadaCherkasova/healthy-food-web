@@ -1,5 +1,5 @@
 <h1 class="header-title" routerLink='../'>Healthy food</h1>
-<div>
+<div class="header-buttons">
   <button *ngIf="!(token$ | async)" class="header-button-text" (click)="openRegisterModal()">Регистрация</button>
   <button *ngIf="!(token$ | async)" class="header-button-wrap header-button-alignment" (click)="openLoginModal()">
     <svg width="27" height="27">
