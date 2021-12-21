@@ -39,7 +39,7 @@ export const routes: Routes = [
     component: AuthorPageComponent,
   },
   {
-    path: '/dashboard',
+    path: 'dashboard',
     component: DashboardPageComponent,
   }
 ]
