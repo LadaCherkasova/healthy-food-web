@@ -9,7 +9,7 @@ module.exports = async(req, res, next) => {
       return res.status(403).send("Not Authorize");
     }
 
-    const payload = jwt.verify(jwtToken, "" + process.env.healthy_food_secret);
+    const payload = jwt.verify(jwtToken, process.env.healthy_food_secret.replace(/\\n/gm, '\n'), { algorithms: ['RS256']});
     req.user = payload.user;
 
   } catch(error) {
