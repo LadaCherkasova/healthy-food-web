@@ -24,8 +24,23 @@ module.exports = async(req, res, next) => {
       'H1qA/mThwRwBFKuoyCgnxacCAwEAAQ==\n' +
       '-----END PUBLIC KEY-----';
 
+    // const key = '-----BEGIN PUBLIC KEY-----\n' +
+    //   'MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAyvBmadg3UwZD5ZujWBvC\n' +
+    //   'GGGnQpFfd3TsOj7nNxoLz7lWzoegPEa/dAcXfuCWqhdnme6cU5y7TVdonNOzD3gw\n' +
+    //   'vf4Xiiou9YjyfV2Ja/ISX0TKIVTJ7yrhCCieUw2nePo6LmFelC8Klqgozra9jCVr\n' +
+    //   'Exp7o6coqRExG9ZdBNh3WrkyWTzJEjWy1E1tu2u//nVnmJck3BWLgvrCG/LOcV0k\n' +
+    //   '3ygP05pDftctcfpOjNtzGFCF/JqFpLjP/rKzV+18dttZizA0yYeyeEeDDi+pqpzj\n' +
+    //   '6Y1FLV0DKUwEvSInXuVkrJ9Fa5uE6dIcDIgkV0WluHGT5frgYeAqngwSmCPJ+3RF\n' +
+    //   '9Uuir7Br4MfEuCv05Xgn8YfMAhXcBWcm4dPaikcM/hInu9lFNfws2evtw170uqhr\n' +
+    //   'SKrRwaDs7aNkloe1tRGwf770eAyvoT1gPAvSyfPu8SNq91O7oKV/125dzuZBDTIB\n' +
+    //   'KU1BzaDTqCjhZd9bzCyVxG9HkJUAGOIINk9+gpar2uQkO2/yB9ad2NEiwVmcOZT/\n' +
+    //   'S42Y0Sk6vUrqqUN2M77Jf9jow1GUhBQ11Kr46TCHbdNAir0gca9JFsxH9d9EWr3O\n' +
+    //   'taH5Me0O5XU3ftmlCnuDtTPIwWYDI76W8jSXlEPSl0WJIOtj096gHYemfacq1xFi\n' +
+    //   'pVS/ExZfSXXNSssQASpo2gUCAwEAAQ==\n' +
+    //   '-----END PUBLIC KEY-----';
+
     const payload = jwt.verify(jwtToken, key, { algorithms: ['RS256']});
-    req.user = payload.user;
+    req.user = payload.userUuid;
 
   } catch(error) {
     console.error(error.message);

@@ -4,22 +4,14 @@ const authorization = require("../middleware/authorization");
 
 module.exports = router;
 
-ADMIN_EMAIL = 'ladacherkasovav@yandex.ru';
-
-async function isAdmin(id) {
-  const user = await pool.query('SELECT user_email from users WHERE user_id = $1', [id]);
-  return user.rows[0].user_email === ADMIN_EMAIL;
-}
-
 //create recipe
 router.post("/", authorization, async(req, res) => {
   try {
     const { title, description, isVegan, portions, preview, time, previousRecipe } = req.body;
-    const isModerated = !(await isAdmin(req.user));
 
     const newRecipe = await pool.query('INSERT INTO recipes ' +
       '(recipe_title, recipe_description, recipe_isvegan, recipe_portions, recipe_preview, recipe_time, recipe_previousRecipe, recipe_author, recipe_ismoderated) ' +
-      'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *', [title, description, isVegan, portions, preview, time, previousRecipe, req.user, isModerated]);
+      'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *', [title, description, isVegan, portions, preview, time, previousRecipe, req.user, true]);
 
     const { ingredients } = req.body;
     for (let ingredient of ingredients) {

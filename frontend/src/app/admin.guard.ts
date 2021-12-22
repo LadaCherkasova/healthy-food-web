@@ -1,13 +1,12 @@
 import { CanActivate } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { AuthQuery } from './services/auth.query';
+
+declare var Userfront: any;
 
 @Injectable({ providedIn: 'root' })
 export class AdminGuard implements CanActivate {
-  constructor(private authQuery: AuthQuery) {}
-
   canActivate(): Observable<boolean> | boolean{
-    return this.authQuery.isAdmin$;
+    return of(Userfront.user.email === 'ladacherkasovav@yandex.ru');
   }
 }

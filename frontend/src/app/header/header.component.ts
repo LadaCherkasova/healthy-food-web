@@ -34,8 +34,8 @@ export class HeaderComponent {
   }
 
   logOut(): void {
+    this.authStore.update({ isLogged: false, token: undefined });
     Userfront.logout();
-    this.authStore.update({ isLogged: false, token: '' });
     if (!this.router.url.includes('/recipe/')) {
       this.router.navigateByUrl('');
     }

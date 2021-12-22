@@ -4,19 +4,15 @@ const authorization = require("../middleware/authorization");
 
 module.exports = router;
 
-ADMIN_EMAIL = 'ladacherkasovav@yandex.ru';
-
 //get moderated recipes
 router.get("/recipes", authorization, async(req, res) => {
   try {
     const user = await pool.query('SELECT user_email from users WHERE user_id = $1', [req.user]);
     let recipes;
-    if (user.rows[0].user_email === ADMIN_EMAIL) {
-      recipes = await pool.query('SELECT * from recipes ' +
-        'INNER JOIN recipe_type ON recipe_type.recipe_id = recipes.recipe_id ' +
-        'INNER JOIN types ON types.type_id = recipe_type.type_id ' +
-        'WHERE recipe_ismoderated = true');
-    }
+    recipes = await pool.query('SELECT * from recipes ' +
+      'INNER JOIN recipe_type ON recipe_type.recipe_id = recipes.recipe_id ' +
+      'INNER JOIN types ON types.type_id = recipe_type.type_id ' +
+      'WHERE recipe_ismoderated = true');
     res.json(recipes.rows);
   } catch(error) {
     console.error(error.message);
@@ -28,9 +24,7 @@ router.get("/ingredients", authorization, async(req, res) => {
   try {
     const user = await pool.query('SELECT user_email from users WHERE user_id = $1', [req.user]);
     let ingredients;
-    if (user.rows[0].user_email === ADMIN_EMAIL) {
-      ingredients = await pool.query('SELECT * from ingredients WHERE ingredient_ismoderated = true');
-    }
+    ingredients = await pool.query('SELECT * from ingredients WHERE ingredient_ismoderated = true');
     res.json(ingredients.rows);
   } catch(error) {
     console.error(error.message);
