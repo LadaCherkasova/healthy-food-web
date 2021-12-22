@@ -6,7 +6,6 @@ import { AddRecipePageComponent } from './add-recipe-page/add-recipe-page.compon
 import { AuthorizationGuard } from './authorization.guard';
 import { ModerationPageComponent } from './moderation-page/moderation-page.component';
 import { AdminGuard } from './admin.guard';
-import { AuthorPageComponent } from './author-page/author-page.component';
 import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
 
 
@@ -33,10 +32,6 @@ export const routes: Routes = [
     path: 'moderation',
     component: ModerationPageComponent,
     canActivate: [AuthorizationGuard, AdminGuard]
-  },
-  {
-    path: 'profile/:id',
-    component: AuthorPageComponent,
   },
   {
     path: 'dashboard',

@@ -108,10 +108,6 @@ export class RecipePageComponent implements OnInit, OnDestroy {
     this.subscription.add(declineRecipeRequest$);
   }
 
-  openAuthorRecipes(): void {
-    this.router.navigateByUrl(`profile/${this.recipe.recipe_id}`);
-  }
-
   openPreviousRecipe(): void {
     this.router.navigateByUrl(`recipe/${this.recipe.recipe_previousrecipe}`);
   }

@@ -22,7 +22,6 @@ import { ModerationPageModule } from './moderation-page/moderation-page.module';
 import { ModerationService } from './services/moderation.service';
 import { IngredientDialogModule } from './ingredient-dialog/ingredient-dialog.module';
 import { AdminGuard } from './admin.guard';
-import { AuthorPageModule } from './author-page/author-page.module';
 import { PipesModule } from './pipes/pipes.module';
 import { DashboardPageModule } from './dashboard-page/dashboard-page.module';
 
@@ -44,7 +43,6 @@ import { DashboardPageModule } from './dashboard-page/dashboard-page.module';
     AddRecipePageModule,
     ModerationPageModule,
     IngredientDialogModule,
-    AuthorPageModule,
     PipesModule,
     DashboardPageModule,
   ],

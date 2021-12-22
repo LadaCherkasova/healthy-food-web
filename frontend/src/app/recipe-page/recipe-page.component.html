@@ -2,12 +2,6 @@
   <div class="recipe-page-card recipe-main-card">
     <div class="recipe-page-image-wrap">
       <img [src]="recipe.recipe_preview" class="recipe-page-main-image">
-      <button class="recipe-page-author-wrap" (click)="openAuthorRecipes()">
-        <svg width="16" height="16">
-          <use xlink:href="assets/cook.svg#cook"></use>
-        </svg>
-        <span>{{recipe.user_name}}</span>
-      </button>
     </div>
     <div class="recipe-page-info">
       <div>

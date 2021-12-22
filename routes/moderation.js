@@ -7,7 +7,6 @@ module.exports = router;
 //get moderated recipes
 router.get("/recipes", authorization, async(req, res) => {
   try {
-    const user = await pool.query('SELECT user_email from users WHERE user_id = $1', [req.user]);
     let recipes;
     recipes = await pool.query('SELECT * from recipes ' +
       'INNER JOIN recipe_type ON recipe_type.recipe_id = recipes.recipe_id ' +
@@ -22,7 +21,6 @@ router.get("/recipes", authorization, async(req, res) => {
 //get moderated ingredients
 router.get("/ingredients", authorization, async(req, res) => {
   try {
-    const user = await pool.query('SELECT user_email from users WHERE user_id = $1', [req.user]);
     let ingredients;
     ingredients = await pool.query('SELECT * from ingredients WHERE ingredient_ismoderated = true');
     res.json(ingredients.rows);
