@@ -35,7 +35,7 @@ router.post("/", authorization, async(req, res) => {
   }
 })
 
-//get all recipes
+//get all available recipes
 router.get("/", async(req, res) => {
   try {
     const recipes = await pool.query('SELECT * from recipes ' +

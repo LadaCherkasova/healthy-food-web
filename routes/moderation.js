@@ -7,8 +7,7 @@ module.exports = router;
 //get moderated recipes
 router.get("/recipes", authorization, async(req, res) => {
   try {
-    let recipes;
-    recipes = await pool.query('SELECT * from recipes ' +
+    let recipes = await pool.query('SELECT * from recipes ' +
       'INNER JOIN recipe_type ON recipe_type.recipe_id = recipes.recipe_id ' +
       'INNER JOIN types ON types.type_id = recipe_type.type_id ' +
       'WHERE recipe_ismoderated = true');
@@ -21,8 +20,7 @@ router.get("/recipes", authorization, async(req, res) => {
 //get moderated ingredients
 router.get("/ingredients", authorization, async(req, res) => {
   try {
-    let ingredients;
-    ingredients = await pool.query('SELECT * from ingredients WHERE ingredient_ismoderated = true');
+    let ingredients = await pool.query('SELECT * from ingredients WHERE ingredient_ismoderated = true');
     res.json(ingredients.rows);
   } catch(error) {
     console.error(error.message);
@@ -45,7 +43,7 @@ router.post("/approve", authorization, async(req, res) => {
   }
 })
 
-//decline recipe for ingredient
+//decline recipe or ingredient
 router.delete("/decline", authorization, async(req, res) => {
   try {
     const { isRecipe } = req.query;

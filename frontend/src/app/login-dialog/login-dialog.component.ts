@@ -9,9 +9,7 @@ declare var Userfront: any;
   styleUrls: ['./login-dialog.component.scss']
 })
 export class LoginDialogComponent implements OnInit, OnDestroy {
-  constructor(
-    private authStore: AuthStore,
-  ) {}
+  constructor(private authStore: AuthStore) {}
 
   ngOnInit() {
     Userfront.render();

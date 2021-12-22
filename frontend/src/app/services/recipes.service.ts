@@ -55,21 +55,6 @@ export class RecipesService {
       );
   }
 
-  getAuthorRecipes(recipeId: number): Observable<any> {
-    const params = new HttpParams().set('recipeId', recipeId);
-    return this.http.get('/recipes/author/list/', {params: params})
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
-
-  // updateRecipePreview(preview: any) {
-  //   return this.http.post('/recipes/update/preview', {preview: preview})
-  //     .pipe(
-  //       catchError(this.handleError)
-  //     );
-  // }
-
   private handleError(error: HttpErrorResponse, authStore?: any) {
     if (error.status === 0) {
       console.error('An error occurred:', error.error);

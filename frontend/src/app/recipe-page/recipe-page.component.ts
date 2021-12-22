@@ -7,6 +7,7 @@ import { FavoritesService } from '../services/favorites.service';
 import { ModerationService } from '../services/moderation.service';
 import { tap } from 'rxjs/operators';
 import { of, Subject, Subscription } from 'rxjs';
+import { ADMIN_EMAIL } from '../admin-info';
 
 declare var Userfront: any;
 
@@ -18,7 +19,7 @@ declare var Userfront: any;
 export class RecipePageComponent implements OnInit, OnDestroy {
   readonly isLogged$ = this.authQuery.isLogged$;
 
-  readonly isAdmin$ = of(Userfront.user.email === 'ladacherkasovav@yandex.ru');
+  readonly isAdmin$ = of(Userfront.user.email === ADMIN_EMAIL);
 
   recipe: any = {};
 

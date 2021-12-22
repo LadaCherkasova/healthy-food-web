@@ -12,7 +12,7 @@ router.get("/ingredients", async(req, res) => {
   }
 });
 
-//get all available types of dishes
+//get all types of dishes
 router.get("/types", async(req, res) => {
   try {
     res.json((await pool.query('SELECT type_name from types')).rows);
