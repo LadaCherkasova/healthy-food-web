@@ -24,7 +24,6 @@ module.exports = async(req, res, next) => {
       'H1qA/mThwRwBFKuoyCgnxacCAwEAAQ==\n' +
       '-----END PUBLIC KEY-----';
 
-    //process.env.healthy_food_secret.replace(/\\n/gm, '\n')
     const payload = jwt.verify(jwtToken, key, { algorithms: ['RS256']});
     req.user = payload.user;
 
