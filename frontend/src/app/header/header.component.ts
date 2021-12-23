@@ -23,7 +23,11 @@ export class HeaderComponent {
     private authQuery: AuthQuery,
     private authStore: AuthStore,
     private router: Router
-  ) {}
+  ) {
+    if (!this.authStore.getValue().isLogged) {
+      this.openLoginModal();
+    }
+  }
 
   openRegisterModal(): void {
     this.matDialog.open(RegisterDialogComponent);
