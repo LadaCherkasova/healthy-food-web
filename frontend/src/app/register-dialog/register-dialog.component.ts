@@ -1,5 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { AuthStore } from '../services/auth.store';
+import { MatDialogRef } from '@angular/material/dialog';
 
 declare var Userfront: any;
 
@@ -11,7 +12,15 @@ declare var Userfront: any;
 export class RegisterDialogComponent implements OnInit, OnDestroy {
   constructor(
     private authStore: AuthStore,
+    private dialogRef: MatDialogRef<RegisterDialogComponent>
   ) {}
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    if ((event.target as HTMLDivElement).classList.value === 'cdk-global-overlay-wrapper') {
+      this.dialogRef.close();
+    }
+  }
 
   ngOnInit() {
     Userfront.render();
