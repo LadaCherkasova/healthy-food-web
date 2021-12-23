@@ -16,6 +16,8 @@ const publicKey = '-----BEGIN PUBLIC KEY-----\n' +
   'H1qA/mThwRwBFKuoyCgnxacCAwEAAQ==\n' +
   '-----END PUBLIC KEY-----';
 
+const adminUserUuid = 'b4b2db22-b51a-4ccb-bdcb-08084fdfd0e8';
+
 module.exports = async(req, res, next) => {
   const jwtToken = req.header("token");
 
@@ -26,7 +28,7 @@ module.exports = async(req, res, next) => {
   );
   const userUuid = payload.userUuid;
 
-  if (process.env.adminUserUuid === userUuid) {
+  if (userUuid === adminUserUuid) {
     next();
   } else {
     return res.status(401).send("Not Administrator");
