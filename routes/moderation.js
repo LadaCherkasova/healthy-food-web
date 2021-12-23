@@ -1,11 +1,12 @@
 const router = require("express").Router();
 const pool = require("../database");
 const authorization = require("../middleware/authorization");
+const isAdmin = require("../middleware/isAdmin");
 
 module.exports = router;
 
 //get moderated recipes
-router.get("/recipes", authorization, async(req, res) => {
+router.get("/recipes", authorization, isAdmin, async(req, res) => {
   try {
     let recipes = await pool.query('SELECT * from recipes ' +
       'INNER JOIN recipe_type ON recipe_type.recipe_id = recipes.recipe_id ' +
@@ -18,7 +19,7 @@ router.get("/recipes", authorization, async(req, res) => {
 })
 
 //get moderated ingredients
-router.get("/ingredients", authorization, async(req, res) => {
+router.get("/ingredients", authorization, isAdmin, async(req, res) => {
   try {
     let ingredients = await pool.query('SELECT * from ingredients WHERE ingredient_ismoderated = true');
     res.json(ingredients.rows);
@@ -28,7 +29,7 @@ router.get("/ingredients", authorization, async(req, res) => {
 })
 
 //approve recipe or ingredient
-router.post("/approve", authorization, async(req, res) => {
+router.post("/approve", authorization, isAdmin, async(req, res) => {
   try {
     const { isRecipe } = req.body;
     if (isRecipe) {
@@ -44,7 +45,7 @@ router.post("/approve", authorization, async(req, res) => {
 })
 
 //decline recipe or ingredient
-router.delete("/decline", authorization, async(req, res) => {
+router.delete("/decline", authorization, isAdmin, async(req, res) => {
   try {
     const { isRecipe } = req.query;
     if (isRecipe === 'true') {
