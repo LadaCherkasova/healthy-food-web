@@ -17,28 +17,18 @@ const publicKey = '-----BEGIN PUBLIC KEY-----\n' +
   '-----END PUBLIC KEY-----';
 
 module.exports = async(req, res, next) => {
-  let userUuid;
+  const jwtToken = req.header("token");
 
-  try {
-    const jwtToken = req.header("token");
-
-    if (!jwtToken) {
-      return res.status(403).send("Not Authorize");
-    }
-
-    const payload = jwt.verify(
-      jwtToken,
-      publicKey,
-      { algorithms: ['RS256']}
-    );
-    userUuid = payload.userUuid;
-
-  } catch(error) {
-    console.error(error.message);
-    return res.status(403).send("Not Authorize");
-  }
+  const payload = jwt.verify(
+    jwtToken,
+    publicKey,
+    { algorithms: ['RS256']}
+  );
+  const userUuid = payload.userUuid;
 
   if (process.env.adminUserUuid === userUuid) {
     next();
+  } else {
+    return res.status(401).send("Not Administrator");
   }
 }
