@@ -13,7 +13,11 @@ export class LoginDialogComponent implements OnInit, OnDestroy {
   constructor(
     private authStore: AuthStore,
     private dialogRef: MatDialogRef<LoginDialogComponent>
-    ) {}
+    ) {
+    if (this.authStore.getValue().isLogged) {
+      this.dialogRef.close();
+    }
+  }
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent) {
